@@ -316,7 +316,7 @@ server <- function(input, output) {
   })
   
   output$plot5 <- renderPlot({
-    ggplot(filtered5(), aes(x=Month, y=Revenuebymonth, group=Country)) +
+    ggplot(filtered5(), aes(x=Year, y=Revenuebymonth, group=Country)) +
       geom_line(aes(color=Country)) +
       theme_light() +
       labs(title="Monthly Revenue") +

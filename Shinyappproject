@@ -34,15 +34,6 @@ df <- read.csv("https://github.com/DineshRamachandran14/PDSSHINY/blob/main/crime
 #$ Robbery          : int  9469 969 288 NA 831 NA 2332 500 108 1233 ...
 
 
-#Change Format
-retail$Total <- as.numeric(as.factor(retail$Total))
-retail$Date <- as.Date(retail$Date)
-data.Quantity <- aggregate(Quantity ~ Product.Type + Country + Product.Name, data=retail, sum)
-data.Total <- aggregate(Total ~ Product.Type + Country + Product.Name, data=retail, sum)
-
-# merge two data frames by Product.Type and Country
-dqt <- merge(data.Quantity,data.Total,by=c("Product.Type","Country","Product.Name"))
-
 #view(dqt)
 retail$Time <- sort(retail$Time, decreasing = FALSE)
 retail$Month <- format(as.Date(retail$Date), "%m")

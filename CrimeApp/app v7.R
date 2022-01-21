@@ -31,7 +31,7 @@ df <- read.csv("https://github.com/DineshRamachandran14/PDSSHINY/blob/main/crime
 ui <- fluidPage(theme = shinytheme("slate"),
 
     # Application title
-    titlePanel(img(src = "banner.png", height = 180, width = 890)
+    titlePanel(img(src = "https://raw.githubusercontent.com/DineshRamachandran14/PDSSHINY/main/CrimeApp/www/banner.png?token=GHSAT0AAAAAABQZ22SG55IEMKYLSGWOGEZAYPK2HLA", height = 180, width = 890)
     ),
     
     fluidRow(
@@ -66,10 +66,10 @@ ui <- fluidPage(theme = shinytheme("slate"),
                             
                             fluidRow(
                               column(5,
-                                img(src = "intro.png"), offset = 1),
+                                img(src = "https://raw.githubusercontent.com/DineshRamachandran14/PDSSHINY/main/CrimeApp/www/intro.png?token=GHSAT0AAAAAABQZ22SH43IE6D44Z75OHI6MYPK2JFQ"), offset = 1),
                               
                               column(3,
-                                img(src = "about.png")),
+                                img(src = "https://raw.githubusercontent.com/DineshRamachandran14/PDSSHINY/main/CrimeApp/www/about.png?token=GHSAT0AAAAAABQZ22SH3ZWXEQ34RS53PRAQYPK2JUQ")),
                               
                             ),
                             
@@ -97,10 +97,10 @@ ui <- fluidPage(theme = shinytheme("slate"),
                             
                             fluidRow(
                               column(5,
-                                     img(src = "analysis.png"), offset = 1),
+                                     img(src = "https://raw.githubusercontent.com/DineshRamachandran14/PDSSHINY/main/CrimeApp/www/analysis.png?token=GHSAT0AAAAAABQZ22SHL2PGQ4VWYXCWO7QSYPK2KHQ"), offset = 1),
                               
                               column(3,
-                                     img(src = "worldmap.png")),
+                                     img(src = "https://github.com/DineshRamachandran14/PDSSHINY/blob/main/CrimeApp/www/worldmap.png")),
                               
                             ),
                             
@@ -156,7 +156,7 @@ ui <- fluidPage(theme = shinytheme("slate"),
                              sidebarLayout(
                                sidebarPanel(strong("Data Science Process")),
                                mainPanel(
-                                 img(src = "datasc.png", height = 120, width = 550),
+                                 img(src = "https://raw.githubusercontent.com/DineshRamachandran14/PDSSHINY/main/CrimeApp/www/datasc.png?token=GHSAT0AAAAAABQZ22SGK2KJBMVUYI2HGYJ4YPK2LUQ", height = 120, width = 550),
                                    p("The data science process ..."),
                                  br())),
                              
@@ -167,7 +167,7 @@ ui <- fluidPage(theme = shinytheme("slate"),
                              
                              fluidRow(
                                column(12, align = "center",
-                                 img(src = "our mission.png", height = 180, width = 890))
+                                 img(src = "https://raw.githubusercontent.com/DineshRamachandran14/PDSSHINY/main/CrimeApp/www/our%20mission.png?token=GHSAT0AAAAAABQZ22SHHSCE6A5WCQRYAOWEYPK2MBA", height = 180, width = 890))
                              ),
                              
                              fluidRow(
@@ -205,7 +205,7 @@ ui <- fluidPage(theme = shinytheme("slate"),
                                                   tags$p(
                                                     tags$i("helping others is a part of responsibility")), offset = 2)),
                                          
-                                         img(src = "community.png", height = 180, width = 320),
+                                         img(src = "https://raw.githubusercontent.com/DineshRamachandran14/PDSSHINY/main/CrimeApp/www/community.png?token=GHSAT0AAAAAABQZ22SG7ANGNMEA3IO457EYYPK2MTA", height = 180, width = 320),
                                          
                              ),
                              

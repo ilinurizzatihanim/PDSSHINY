@@ -221,12 +221,31 @@ ui <- fluidPage(theme = shinytheme("slate"),
                                               choices = list("2003", "2004", "2005", "2006", "2007", "2008", "2009","2010", "2011", "2012", "2015", "2016", "2017"), selected = "2003"),
                        selectInput("checkType", label = "Select Type of Crime",
                                    choices = list("Kidnapping", "Rape", "Sexual Assault", "Robbery", "Homicide", "Human Trafficking"), selected = "Type of Crime")),
-
-                   mainPanel(
-                     plotOutput("scatterPlot")))
+      timeseries<- tabPanel("Time Analysis", 
+             sidebarPanel(
+              dateRangeInput("DateInput", sort(unique(df$Year)), min = min(df$Year), max = max(df$Year), range(min(df$Year), max(df$Year)), label = "Year range:"), #Date Range
+              pickerInput("CountryInput","Select Country:", choices=sort(unique(df$Country)), options = list(`actions-box` = TRUE),multiple = T) #Country list
+  
                    ),
-                     
-                   
+                   mainPanel(
+                  tabsetPanel(
+                    tabPanel("Sales by Time Overview", #First tab for Time Analysis Nav. Tab
+                          plotOutput("plot5", width = 800, height = 300), #plot output
+                          br(),
+                          br(),
+                          plotOutput("plot4", width = 800, height = 300), #plot output
+                          br(),
+                          br()
+                 ),
+                 tabPanel("Customer Segmentation", #Second tab for Time Analysis Nav. Tab
+                          plotOutput("plot6", width = 800, height = 300),
+                          br(),
+                          plotOutput("plot3", width = 800, height = 300)
+                 )
+               )
+             )
+    ),
+                               
       map_panel <-tabPanel("World Map", icon = icon("globe-americas"),
                            mainPanel((leafletOutput("map", height = 1000))),
       )
@@ -240,17 +259,83 @@ ui <- fluidPage(theme = shinytheme("slate"),
 
 # Define server logic 
 server <- function(input, output) {
-
-
-  output$map <- renderLeaflet({
-    leaflet(crime) %>%
-      addProviderTiles("CartoDB.Positron", options = providerTileOptions(noWrap = TRUE)) %>%
-      addCircleMarkers(
-        # Popup content
-        popup = paste("Offense", crime$entity, "<br>",
-                      "Year:", crime$year))
+    
+    # Filter for Time Analysis
+  filtered2 <- reactive({
+    retail %>%
+      filter (Date >= input$DateInput[1],
+              Date <= input$DateInput[-1],
+              Country %in% input$CountryInput) %>% 
+      group_by(Country, Time) %>% 
+      summarise(numOfCust = n_distinct(CustomerID))
   })
   
+  filtered3 <- reactive({
+    retail %>%
+      filter (Date >= input$DateInput[1],
+              Date <= input$DateInput[-1],
+              Country %in% input$CountryInput) %>% 
+      group_by(Country, Time) %>% 
+      summarise(Revenuebytime = sum(Total))
+  })
+  
+  
+  filtered5 <- reactive({
+    retail %>%
+      filter (Country %in% input$CountryInput) %>% 
+      group_by(Country, Month) %>% 
+      summarise(Revenuebymonth = sum(Total))
+  })
+  
+  filtered6 <- reactive({
+    retail %>%
+      filter (Country %in% input$CountryInput) %>% 
+      group_by(Country, Month) %>% 
+      summarise(numOfcustbymonth = n_distinct(CustomerID))
+  })
+  
+  #Output for Time Analysis
+  output$plot3 <- renderPlot({
+    ggplot(filtered2(), aes(x=Time, y=numOfCust, group=Country)) +
+      geom_line(aes(color=Country)) +
+      theme_light() +
+      labs(title="Customer Count Across Time")+
+      xlab("Time") + ylab("Number of customers") +
+      theme(plot.title = element_text(hjust = 0.5, face = "bold"))+
+      scale_y_continuous(labels = scales::comma)
+  })
+  
+  output$plot4 <- renderPlot({
+    ggplot(filtered3(), aes(x=Time, y=Revenuebytime, group=Country)) +
+      geom_line(aes(color=Country)) +
+      theme_light() +
+      labs(title="Revenue Across Time") +
+      xlab("Time") + ylab("Revenue") +
+      theme(plot.title = element_text(hjust = 0.5, face = "bold"))+
+      scale_y_continuous(labels = scales::comma)
+  })
+  
+  output$plot5 <- renderPlot({
+    ggplot(filtered5(), aes(x=Month, y=Revenuebymonth, group=Country)) +
+      geom_line(aes(color=Country)) +
+      theme_light() +
+      labs(title="Monthly Revenue") +
+      xlab("Month") + ylab("Revenue") +
+      theme(plot.title = element_text(hjust = 0.5, face = "bold"))+
+      scale_y_continuous(labels = scales::comma)
+  })
+  
+  output$plot6 <- renderPlot({
+    ggplot(filtered6(), aes(x=Month, y=numOfcustbymonth, group=Country)) +
+      geom_line(aes(color=Country)) +
+      theme_light() +
+      labs(title="Monthly Customer Count")+
+      xlab("Month") + ylab("Number of customers") +
+      theme(plot.title = element_text(hjust = 0.5, face = "bold")) +
+      scale_y_continuous(labels = scales::comma)
+  })
+  
+    
 }
 
 

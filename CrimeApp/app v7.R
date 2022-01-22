@@ -215,7 +215,23 @@ ui <- fluidPage(theme = shinytheme("slate"),
                      plotOutput("scatterPlot")))
                    ),
                      
-                   
+                            tabPanel("Crime Rate Analysis", # Navigation Tab
+                           sidebarPanel(
+                             selectInput("YearInput", label = "Select time period:", choices= 2003:2017), #Year Range
+                             pickerInput("CountryInput","Select Country:", choices=sort(unique(crime$Country)), options = list(`actions-box` = TRUE),multiple = T) #Country list
+                             
+                           ),
+                           mainPanel(
+                             tabsetPanel(
+                               tabPanel("Crime Rate by Time Overview", #First tab 
+                                        plotOutput("plot5", width = 800, height = 300), #plot output kidnapping
+                                        br(),
+                                        br()
+                                        
+                               )
+                             )
+                           ),
+                                    
       map_panel <-tabPanel("World Map", icon = icon("globe-americas"),
                            mainPanel((leafletOutput("map", height = 1000))),
       )
@@ -240,6 +256,23 @@ server <- function(input, output) {
                       "Year:", crime$year))
   })
   
+     filtered5 <- reactive({ #graph 1A
+    crime %>%
+      filter (Country %in% input$CountryInput) %>% 
+      group_by(Country, Year) %>% 
+      summarise(KidnapRatebyYear = sum(KRate))
+  })
+  
+  output$plot5 <- renderPlot({ #graph 1A
+    ggplot(filtered5(), aes(x=Year, y=KidnapRatebyYear, group=Country)) +
+      geom_line(aes(color=Country)) +
+      theme_light() +
+      labs(title="Kidnapping Rate by Year") +
+      xlab("Year") + ylab("Kidnapping Rate (%)") +
+      theme(plot.title = element_text(hjust = 0.5, face = "bold"))+
+      scale_y_continuous(labels = scales::comma)
+  })
+    
 }
 
 

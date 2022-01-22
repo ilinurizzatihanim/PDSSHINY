@@ -13,14 +13,14 @@ library(ggplot2)
 library(tidyverse)
 
 #Loading data
-
+df <- read.csv("https://github.com/DineshRamachandran14/PDSSHINY/blob/main/crimedataset.xlsx%20-%20Sheet1.csv")
 
 
 # Define UI for application
 ui <- fluidPage(theme = shinytheme("slate"),
 
     # Application title
-    titlePanel(img(src = "banner.png", height = 180, width = 890)
+    titlePanel(img(src = "banner.png", height = '100%', width = '100%')
     ),
     
     fluidRow(
@@ -210,14 +210,28 @@ ui <- fluidPage(theme = shinytheme("slate"),
                                               choices = list("2003", "2004", "2005", "2006", "2007", "2008", "2009","2010", "2011", "2012", "2015", "2016", "2017"), selected = "2003"),
                        selectInput("checkType", label = "Select Type of Crime",
                                    choices = list("Kidnapping", "Rape", "Sexual Assault", "Robbery", "Homicide", "Human Trafficking"), selected = "Type of Crime")),
-
-                   mainPanel(
-                     plotOutput("scatterPlot")))
-                   ),
+                       
+                       selectizeInput("name",
+                                      label = "Country Name",
+                                      choices = unique(df$Country),
+                                      multiple = T,
+                                      options = list(maxItems = 2,
+                                                     placeholder = 'Select a name'),
+                                      selected = ""
+                                      
+                       ),
+                       
+                       # Term plot
+                     plotOutput("termPlot", height = 200),
                      
-                   
-      map_panel <-tabPanel("World Map", icon = icon("globe-americas"),
-                           mainPanel((leafletOutput("map", height = 1000))),
+                     # Main panel for displaying outputs ----
+                     mainPanel(
+                       
+                       # Output: Tabset w/ plot, summary, and table ----
+                       tabsetPanel(type = "tabs",
+                                   tabPanel("Plot", plotOutput("plot")),
+                                   tabPanel("Summary", verbatimTextOutput("summary")),
+                                   tabPanel("Table", tableOutput("table")))
       )
     )
 )

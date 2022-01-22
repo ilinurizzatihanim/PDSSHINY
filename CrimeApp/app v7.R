@@ -13,7 +13,7 @@ library(ggplot2)
 library(tidyverse)
 
 #Loading data
-
+crime <- read.csv("https://raw.githubusercontent.com/DineshRamachandran14/PDSSHINY/main/CrimeApp/Asian_Clean1.csv")
 
 
 # Define UI for application

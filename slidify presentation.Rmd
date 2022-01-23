@@ -1,0 +1,70 @@
+---
+title       : "WQD7001 Principle of Data Science"
+subtitle    : "Analysis on Violence Crime Rates Within Asian Region"
+author      : "Group H: High-5"
+job         : "hello"
+framework   : revealjs        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : <link rel="stylesheet" href="dist/theme/night.css">  # 
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+
+---
+## Analysis on Violence Crime Rates Within Asian Region
+
+WQD7001 Principle of Data Science
+
+
+
+<span style="color:yellow; font-weight:bold">Group H: High-5</span>
+
+1. Dinesh V M Ramachandran (S2119167)
+2. Tay Min Zhen (S2117893)
+3. Farah Jasmien binti Zukari (17172774)
+4. Izzati Farzana Othman (S2127549)
+5. Ili Nurizzati binti Hanim (17070213)
+
+
+---
+## Introduction
+
+* To figure out how we can create higher exposure and awareness that would contribute to different parties such as the <span style="color:yellow; font-weight:bold">government, NGOs, and the community</span>. 
+
+* According to the Federal Bureau of Investigation of the United States, <span style="color:yellow; font-weight:bold">violent crime is defined as those offenses which involve force or threat of force.</span> It is composed of four offenses which include murder and non negligent manslaughter, forcible rape, robbery, and aggravated assault.
+
+* Most of the victims are so powerless to deal with violence thus, causing the tragedies to happen repeatedly. Despite enacting stricter laws to the violent offender, the community should have higher awareness on the issue.
+
+
+---
+## Dataset Information
+
+* Data are publicly available in the United States report; issued by the United Nation Offices of Drug and Crimes (UNODC)
+
+* Crime Website: https://www.unodc.org
+
+* The dataset contains information on the countries within Asian Region and different type of crime that includes:
+
+1. Kidnapping
+2. Robbery
+3. Serious assault
+
+* The dataset contains the rate and count value for each country source.
+* The rate for each country is per 100,000 population.
+
+* We clean and integrate the dataset from different sources and types of crime into one final dataset before uploading them into the code.
+
+
+* <span style="color:yellow; font-weight:bold">Type of Analysis: Descriptive analysis</span>
+
+---
+## App Content
+
+
+---
+
+## Design Thinking Element
+
+
+* We are putting empathetic understanding into our data product which is decision making.
+* This application is useful for the user of the product in which they may choose which region they wish to reside in, depending on crime statistics if they chose to migrate internationally.
+* ! [Alt text] (https://drive.google.com/file/d/18su7eV-DXmpggOjFmVTwtkAKqAXuGozv/view?usp=sharing) 
